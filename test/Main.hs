@@ -11,7 +11,6 @@ main = defaultMain $ testGroup "All tests" [
     testProperty "Simple types have no args"         simpleTypesNoArgs
   , testProperty "Simple functions have simple args" simpleFunctionArgs
   , testProperty "Can split up function types"       canSplitFunTypes
-  --, testProperty "Applied types" canReadAppliedTypes
   ]
 
 simpleTypesNoArgs t = parseArgs (type2String (TC t)) === []
@@ -43,13 +42,6 @@ canSplitFunTypes (NonEmpty ts) =
         gotExpected  = all (`elem` bits)   foundS
         noUnexpected = all (`elem` foundS) bits
         test         = gotExpected && noUnexpected
-
---canReadAppliedTypes t@(TyApp ts) =
---  stringThenParse (TA t) === Just (Node (mapMaybe (stringThenParse) ts))
-
-stringThenParse = argsAsStrings . type2String
-
-argsAsStrings = map pp . parseArgs
 
 type2String :: Type -> String
 type2String (TC (TyCon t))  = t

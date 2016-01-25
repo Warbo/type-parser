@@ -56,3 +56,12 @@ pp = Pretty.prettyPrintStyleMode (Pretty.style {
                                      Pretty.mode = Pretty.OneLineMode
                                   })
                                  Pretty.defaultMode
+parseToArgs :: String -> String
+parseToArgs = unlines . map pp . dedupe . parseArgs
+
+dedupe :: [Type] -> [Type]
+dedupe = nub . map simplify
+
+simplify :: Type -> Type
+simplify (TyParen t) = t
+simplify t           = t
