@@ -16,12 +16,22 @@ build-type:          Simple
 -- extra-source-files:  
 cabal-version:       >=1.10
 
+library
+  exposed-modules:     Parse
+  -- other-modules:       
+  -- other-extensions:    
+  build-depends:       base >=4.8 && <4.9
+                     , haskell-src-exts
+  hs-source-dirs:      src
+  default-language:    Haskell2010
+                     
 executable type-parser
   main-is:             Main.hs
   -- other-modules:       
   -- other-extensions:    
   build-depends:       base >=4.8 && <4.9
-  hs-source-dirs:      src
+                     , type-parser
+  hs-source-dirs:      type-parser
   default-language:    Haskell2010
 
 test-suite test
@@ -30,7 +40,7 @@ test-suite test
   hs-source-dirs:      test
   main-is:             Main.hs
   build-depends:       base >= 4.8
-                     , haskell-src-exts
+                     , type-parser
                      , QuickCheck
                      , tasty >= 0.7
                      , tasty-quickcheck
