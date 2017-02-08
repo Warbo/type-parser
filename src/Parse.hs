@@ -22,7 +22,7 @@ parseType x = case Parser.parseType x of
 -- | Get all components of the argument parts of a type, e.g. for
 --   Int -> [Bool] -> String will return a list like [Int, [Bool], Bool]
 argTypes :: Type -> [Type]
-argTypes t = if "->" `isInfixOf` (pp t)
+argTypes t = if "->" `isInfixOf` pp t
                 then let topArgs = init (splitType t)
                       in topArgs ++ concatMap bitsOf topArgs
                 else []
